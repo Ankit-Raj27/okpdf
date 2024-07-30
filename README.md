@@ -76,8 +76,6 @@ Welcome to the OKPDF Chatbot project! This web application allows users to uploa
   ```
 ## Configuration
 
-### Environment Variables
-
 1.Create a `.env.local` file in the root of the project and add the following environment variables:
 
 ```env
@@ -90,8 +88,64 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 PINECONE_API_KEY=your_pinecone_api_key
 OPENAI_API_KEY=your_openai_api_key
 ```
-2.Configure Stripe webhooks for handling subscription events.
+2. Configure Stripe webhooks for handling subscription events.
+3. Set up your Pinecone index:
 
+- Log in to your Pinecone account
+- Create a new index with the desired dimensions (e.g., 1536 for OpenAI embeddings)
+- Note down the index name and environment
+
+
+4.Configure AWS S3:
+
+- Create a new S3 bucket for storing PDF files
+- Set up CORS configuration for your bucket to allow uploads from your application's domain
+
+
+5.Set up the Neon Database:
+- Create a new database in your Neon account
+- Run the database migrations:
+  ```bash
+  npm run migrate
+  or
+  yarn migrat
+  ```
+### File Structure
+
+```plaintext
+okpdf-chatbot/
+├── components/
+│   ├── Chat.tsx
+│   ├── FileUpload.tsx
+│   ├── SubscriptionButton.tsx
+│   └── ...
+├── pages/
+│   ├── api/
+│   │   ├── chat.ts
+│   │   ├── upload.ts
+│   │   ├── history.ts
+│   │   ├── subscribe.ts
+│   │   └── webhook.ts
+│   ├── _app.tsx
+│   ├── index.tsx
+│   └── ...
+├── lib/
+│   ├── db.ts
+│   ├── openai.ts
+│   ├── pinecone.ts
+│   ├── s3.ts
+│   └── stripe.ts
+├── styles/
+│   └── globals.css
+├── public/
+├── types/
+├── utils/
+├── .env.local
+├── next.config.js
+├── package.json
+├── README.md
+└── tsconfig.json
+```
 ### Usage
 1. Start the development server
    ```bash
